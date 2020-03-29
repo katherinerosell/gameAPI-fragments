@@ -12,9 +12,9 @@ public class TempActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
         if(savedInstanceState == null){
-            MainActivity stopwatch = new MainActivity();
+            MainFragment stopwatch = new MainFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.stopwatch_container, stopwatch);
+            ft.add(R.id.mainfragment_container, stopwatch);
             ft.addToBackStack(null);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
