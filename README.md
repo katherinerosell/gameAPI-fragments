@@ -1,2 +1,2 @@
-# gameAPI-fragments
-SER210 Assignment 3 - using the API project and developing it with fragments and NavController
+# assignment2-api
+Games API - display list of games depending on genre selected 
