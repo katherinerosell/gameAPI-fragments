@@ -37,7 +37,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class GenreSelectFragment extends Fragment implements View.OnClickListener {
     static interface Listner{
-        void itemClicked(long ID);
+        void genreSelected(String genreString);
     }
     
     private Listner listner;
@@ -46,35 +46,19 @@ public class GenreSelectFragment extends Fragment implements View.OnClickListene
     //urls of api here!
 
     private static String genrePicked;
-    private Spinner genreSpinner;
-    private Button searchButton;
+    private static Spinner genreSpinner;
+    private static Button searchButton;
+    private static final String[] MYGENRES = GenreHandler.GENRES;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View layout = inflater.inflate(R.layout.fragment_main, container, false);
-        /**
-        genreSpinner = layout.findViewById(R.id.genre_spinner);
-        ArrayAdapter<String> genreAdapter = new ArrayAdapter<String>(layout.getContext(), android.R.layout.simple_spinner_item, genreHandler.GENRES);
+
+        ArrayAdapter<String> genreAdapter = new ArrayAdapter<>(layout.getContext(), android.R.layout.simple_spinner_item, MYGENRES);
         genreAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genreSpinner = layout.findViewById(R.id.genre_spinner);
         genreSpinner.setAdapter(genreAdapter);
-        //the Find Games button is what really allows the user to go to the next activity using the spinner
-        //we only want to go to the next activity when the user clicks the find games button
-        searchButton = layout.findViewById(R.id.searchB);//search Button
-        searchButton.setOnClickListener(this);
-         **/
-        /**
 
-        //searchButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String spinnerText = genreSpinner.getSelectedItem().toString();
-                Log.d("SPINNER", spinnerText);
-                genrePicked = spinnerText;
-                RetrieveGenreGames myFetchRequest = (RetrieveGenreGames) new RetrieveGenreGames().execute(genrePicked);
-
-            }
-        });
-         **/
         return layout;
     }
 
@@ -84,20 +68,18 @@ public class GenreSelectFragment extends Fragment implements View.OnClickListene
         super.onStart();
         View view = getView();
         if(view != null){
-            Spinner genreSpinner = (Spinner) view.findViewById(R.id.genre_spinner);
-            Button searchButton = (Button) view.findViewById(R.id.searchB);
+            genreSpinner = view.findViewById(R.id.genre_spinner);
+            searchButton = (Button) view.findViewById(R.id.searchB);
+            //searchButton.setOnClickListener(this);
         }
     }
-
-
 
     @Override
     public void onClick(View v) {
         String spinnerText = genreSpinner.getSelectedItem().toString();
         Log.d("----- GenreSelectFragment----- SPINNER  ", spinnerText);
         genrePicked = spinnerText;
-        
-       // RetrieveGenreGames myFetchRequest = (RetrieveGenreGames) new RetrieveGenreGames().execute(genrePicked);
+        listner.genreSelected(genrePicked);
     }
 
 
@@ -112,5 +94,7 @@ public class GenreSelectFragment extends Fragment implements View.OnClickListene
         super.onAttach(context);
         this.listner = (Listner)context;
     }
+
+    
 
 }

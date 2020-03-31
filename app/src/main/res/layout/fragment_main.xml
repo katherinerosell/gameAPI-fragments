@@ -7,44 +7,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="300dp"
-                android:layout_height="270dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="50dp"
-                android:orientation="vertical"
-                android:padding="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="300dp"
+            android:layout_height="270dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical"
+            android:padding="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0">
 
-                <TextView
-                    android:id="@+id/selectgenre_text"
-                    android:layout_width="203dp"
-                    android:layout_height="48dp"
-                    android:text="Select A Genre"
-                    android:textSize="24sp" />
+            <TextView
+                android:id="@+id/selectgenre_text"
+                android:layout_width="267dp"
+                android:layout_height="67dp"
+                android:text="Select A Genre"
+                android:textSize="28sp" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
-                <Spinner
-                    android:id="@+id/genre_spinner"
-                    android:layout_width="223dp"
-                    android:layout_height="55dp" />
+            <Spinner
+                android:id="@+id/genre_spinner"
+                android:layout_width="223dp"
+                android:layout_height="55dp" />
 
-                    <Button
-                        android:id="@+id/searchB"
-                        android:layout_width="111dp"
-                        android:layout_height="56dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Find Games!"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </LinearLayout>
+            <Button
+                android:id="@+id/searchB"
+                android:layout_width="111dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:text="Find Games!"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

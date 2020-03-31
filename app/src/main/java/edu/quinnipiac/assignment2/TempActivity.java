@@ -39,7 +39,7 @@ public class TempActivity extends AppCompatActivity implements GenreSelectFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_temp);
         //just a precaution for version errors
         if (Build.VERSION.SDK_INT > 9){
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -47,6 +47,7 @@ public class TempActivity extends AppCompatActivity implements GenreSelectFragme
         }
 
         //Spinner object
+        /**
         final Spinner genreSpinner = findViewById(R.id.genre_spinner);
         ArrayAdapter<String> genreAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genreHandler.GENRES);
         genreAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -58,18 +59,19 @@ public class TempActivity extends AppCompatActivity implements GenreSelectFragme
             @Override
             public void onClick(View v) {
                 String spinnerText = genreSpinner.getSelectedItem().toString();
-                Log.d("SPINNER", spinnerText);
+                //Log.d("SPINNER", spinnerText);
                 genrePicked = spinnerText;
                 TempActivity.RetrieveGenreGames myFetchRequest = (TempActivity.RetrieveGenreGames) new TempActivity.RetrieveGenreGames().execute(genrePicked);
 
             }
         });
-
+        **/
     }
 
     @Override
-    public void itemClicked(long ID) {
-        Log.d("MAIN ACTIVITY - itemClicked", " ID from fragment  " + ID);
+    public void genreSelected(String genreString) {
+        genrePicked = genreString;
+        TempActivity.RetrieveGenreGames myFetchRequest = (TempActivity.RetrieveGenreGames) new TempActivity.RetrieveGenreGames().execute(genreString);
     }
 
 
@@ -100,9 +102,9 @@ public class TempActivity extends AppCompatActivity implements GenreSelectFragme
                 }
                 gamesOfGenre = getStringRead(
                         new BufferedReader(new InputStreamReader((mainConnection.getInputStream()))), strings[0]);
-                //Log.d("games in genre", gamesOfGenre.toString());
+                Log.d("games in genre", gamesOfGenre.toString());
             } catch (Exception ex){
-                Log.e("ERR in RETREIVE", ex.toString());
+                //Log.e("ERR in RETREIVE", ex.toString());
                 return null;
             } finally{
                 if (mainConnection != null) mainConnection.disconnect();
@@ -123,7 +125,7 @@ public class TempActivity extends AppCompatActivity implements GenreSelectFragme
         }
 
         /**
-         * OnPOstExecute
+         * OnPostExecute
          * Using the "res" String we creates, which is the list of games we were able to retrieve,
          * send that information into the second activity to be displayed.
          * As well as the image url of the certain genre
@@ -132,7 +134,7 @@ public class TempActivity extends AppCompatActivity implements GenreSelectFragme
         @Override
         protected void onPostExecute(String res){
             if (res != null){
-                Log.d("*************   MAIN ACTIVITY  *************", " on post execute : res   " + res + " ------------ TYPE OF res:  "  + res.getClass());
+                //Log.d("*************   MAIN ACTIVITY  *************", " on post execute : res   " + res + " --- TYPE OF res:  "  + res.getClass());
                 Intent intent = new Intent(TempActivity.this, SecondActivity.class);
                 intent.putExtra("List of Games", res);
                 intent.putExtra("Genre", genrePicked);
