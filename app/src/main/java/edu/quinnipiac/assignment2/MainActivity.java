@@ -6,11 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -20,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +36,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 
-public class MainActivity extends Fragment implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     ShareActionProvider provider;
     //urls of api here!
     private final String urlHost = "https://rawg-video-games-database.p.rapidapi.com/genres";
@@ -49,33 +45,25 @@ public class MainActivity extends Fragment implements View.OnClickListener {
     private static String genrePicked;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         //just a precaution for version errors
         if (Build.VERSION.SDK_INT > 9){
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View layout = inflater.inflate(R.layout.activity_main, container, false);
         //Spinner object
-        final Spinner genreSpinner = layout.findViewById(R.id.genre_spinner);
-        ArrayAdapter<String> genreAdapter = new ArrayAdapter<String>(layout.getContext(), android.R.layout.simple_spinner_item, genreHandler.GENRES);
+        final Spinner genreSpinner = findViewById(R.id.genre_spinner);
+        ArrayAdapter<String> genreAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genreHandler.GENRES);
         genreAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genreSpinner.setAdapter(genreAdapter);
         //the Find Games button is what really allows the user to go to the next activity using the spinner
         //we only want to go to the next activity when the user clicks the find games button
-        Button searchButton = layout.findViewById(R.id.searchB);//search Button
+        Button searchButton = findViewById(R.id.searchB);//search Button
         searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -86,11 +74,6 @@ public class MainActivity extends Fragment implements View.OnClickListener {
 
             }
         });
-        return layout;
-    }
-
-    @Override
-    public void onClick(View v) {
 
     }
 
@@ -151,33 +134,28 @@ public class MainActivity extends Fragment implements View.OnClickListener {
          * @param res
          */
         @Override
-        protected void onPostExecute(String res){
-            if (res != null){
-                Log.d("*************   MAIN ACTIVITY  *************", " on post execute : res   " + res + " ------------ TYPE OF res:  "  + res.getClass());
-                /**
+        protected void onPostExecute(String res) {
+            if (res != null) {
+                Log.d("*************   MAIN ACTIVITY  *************", " on post execute : res   " + res + " ------------ TYPE OF res:  " + res.getClass());
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra("List of Games", res);
                 intent.putExtra("Genre", genrePicked);
                 intent.putExtra("Img", genreHandler.getImageBackground());
                 startActivity(intent);
-                 **/
             }
         }
-
     }
 
-    /**
-
-//Jenna's implementation of Action Bar
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the app bar
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    MenuItem menuItem = menu.findItem(R.id.action_share);
-    provider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-    setShareActionIntent("Hi");
-    return super.onCreateOptionsMenu(menu);
-}
+    //Jenna's implementation of Action Bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the app bar
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        setShareActionIntent("Hi");
+        return super.onCreateOptionsMenu(menu);
+    }
 
     private void setShareActionIntent(String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -211,5 +189,4 @@ public boolean onCreateOptionsMenu(Menu menu) {
         }
         return false;
     }
-    **/
 }
