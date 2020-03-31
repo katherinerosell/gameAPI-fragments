@@ -70,7 +70,7 @@ public class GenreSelectFragment extends Fragment implements View.OnClickListene
         if(view != null){
             genreSpinner = view.findViewById(R.id.genre_spinner);
             searchButton = (Button) view.findViewById(R.id.searchB);
-            //searchButton.setOnClickListener(this);
+            searchButton.setOnClickListener(this);
         }
     }
 
@@ -95,6 +95,6 @@ public class GenreSelectFragment extends Fragment implements View.OnClickListene
         this.listner = (Listner)context;
     }
 
-    
+
 
 }

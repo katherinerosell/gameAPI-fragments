@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     /**
      * RetrieveGenreGames
      * AsyncTask handles the internet connection to the api information we are using.
