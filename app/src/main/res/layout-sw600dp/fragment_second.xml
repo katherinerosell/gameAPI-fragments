@@ -19,7 +19,7 @@
                 android:id="@+id/genre_img"
                 android:layout_width="526dp"
                 android:layout_height="352dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="350dp"
                 android:layout_marginTop="60dp"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -27,7 +27,7 @@
                 android:id="@+id/listofgames"
                 android:layout_width="477dp"
                 android:layout_height="241dp"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="350dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="50dp"
                 android:padding="8dp"
