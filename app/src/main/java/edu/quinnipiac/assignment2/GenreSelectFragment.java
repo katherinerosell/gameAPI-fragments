@@ -28,10 +28,12 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
+ * Genre Select Fragment
+ * @Authors: Katherine Rosell
+ * 3/31/2020
+ * Made by almost "splitting" the MainActivity into a front-end and back-end.
+ * This Fragment handles the UI and creates an interface to communicate with the
  * MainActivity
- * @Authors: Katherine Rosell, Jenna Saleh
- * Similar to the NumbersApp, the user selects a genre of a game and this code establishes a network connection!
- *
  */
 
 

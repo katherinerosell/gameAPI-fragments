@@ -19,6 +19,15 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
+
+/**
+ * MainActivity
+ * Author: Katie Rosell
+ * 3/31/2020
+ * Adjusted to communicate with the main fragment, GenreSelectFragment, which handles the UI.
+ * The MainActivity class implements that fragment's interface in order to begin the AsyncTask,
+ * based on the Button click.
+ */
 public class MainActivity extends AppCompatActivity implements GenreSelectFragment.Listner {
     ShareActionProvider provider;
     //urls of api here!
@@ -36,29 +45,14 @@ public class MainActivity extends AppCompatActivity implements GenreSelectFragme
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
-        //Spinner object
-        /**
-        final Spinner genreSpinner = findViewById(R.id.genre_spinner);
-        ArrayAdapter<String> genreAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genreHandler.GENRES);
-        genreAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genreSpinner.setAdapter(genreAdapter);
-        //the Find Games button is what really allows the user to go to the next activity using the spinner
-        //we only want to go to the next activity when the user clicks the find games button
-        Button searchButton = findViewById(R.id.searchB);//search Button
-        searchButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String spinnerText = genreSpinner.getSelectedItem().toString();
-                //Log.d("SPINNER", spinnerText);
-                genrePicked = spinnerText;
-                TempActivity.RetrieveGenreGames myFetchRequest = (TempActivity.RetrieveGenreGames) new TempActivity.RetrieveGenreGames().execute(genrePicked);
-
-            }
-        });
-        **/
     }
 
+    /**
+     * genreSelected
+     * From the fragment this activity uses - saves a string from the spinner
+     * object defined in the fragment. Starts the AsyncTask and sends intent to the SecondActivity
+     * @param genreString
+     */
     @Override
     public void genreSelected(String genreString) {
         genrePicked = genreString;
@@ -136,6 +130,6 @@ public class MainActivity extends AppCompatActivity implements GenreSelectFragme
 
     }
 
-
+//removed the toolbar - I had a version error with the toolbar once I updated Android Studio
 
 }

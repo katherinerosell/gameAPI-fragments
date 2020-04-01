@@ -10,6 +10,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+/**
+ *
+ * SecondActivity
+ * Author: Katherine Rosell and Jenna Saleh
+ * 3/31/2020
+ */
 
 /**
  * A simple {@link Fragment} subclass.

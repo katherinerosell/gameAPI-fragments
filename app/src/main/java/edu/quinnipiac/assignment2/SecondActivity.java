@@ -14,7 +14,7 @@ import java.net.URL;
 
 /**
  * SecondActivity
- * Author: Katherine Rosell
+ * Author: Katherine Rosell and Jenna Saleh
  * 2/29/2020
  * SecondActivity class is the second activity where all the games within a certain
  * genre, selected in MainActivity, are held. This class holds the text and image view
@@ -69,4 +69,5 @@ public class SecondActivity extends AppCompatActivity implements SecondFragment.
         TextView gameTitles = txtView;
         gameTitles.setText("Games of Genre, " + genrePicked + ":  " + gamesOfGenre);
     }
+
 }
