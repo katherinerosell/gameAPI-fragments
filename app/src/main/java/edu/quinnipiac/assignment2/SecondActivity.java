@@ -6,8 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.InputStream;
@@ -22,20 +21,25 @@ import java.net.URL;
  * objects we load information into thanks to the intent's information we sent over.
  */
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity implements SecondFragment.SecondListener {
+
+    private static String gamesOfGenre;
+    private static String genrePicked;
+    private static String imgURL;
+    private static Bitmap bitmapImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
         //have share option available in toolbar
-        String gamesOfGenre = (String) getIntent().getExtras().get("List of Games");
-        String genrePicked = (String) getIntent().getExtras().get("Genre");
-        String imgURL = (String) getIntent().getExtras().get("Img");
+        gamesOfGenre = (String) getIntent().getExtras().get("List of Games");
+        genrePicked = (String) getIntent().getExtras().get("Genre");
+        imgURL = (String) getIntent().getExtras().get("Img");
         loadImage(imgURL);//using the string, get the actual image from the internet
 
-        TextView textGameTitles = (TextView) findViewById(R.id.listofgames);
-        textGameTitles.setText("Games of Genre, " + genrePicked + ":  " +gamesOfGenre);
+        //TextView textGameTitles = (TextView) findViewById(R.id.listofgames);
+        //textGameTitles.setText("Games of Genre, " + genrePicked + ":  " +gamesOfGenre);
     }
 
     /**
@@ -45,16 +49,24 @@ public class SecondActivity extends AppCompatActivity {
      */
 
     private void loadImage(String theURL){
-        Bitmap bitmapImg = null;
+        bitmapImg = null;
         try{
             InputStream inputStream = new URL(theURL).openStream();
             bitmapImg = BitmapFactory.decodeStream(inputStream);
         }catch(Exception err){
             Log.e("*******  SECOND ACTIVITY  ****** ", "  " + err.toString());
         }
-        ImageView my_image = findViewById(R.id.genre_img);
-        my_image.setImageBitmap(bitmapImg);
+        //ImageView my_image = findViewById(R.id.genre_img);
+        //my_image.setImageBitmap(bitmapImg);
     }
 
 
+    @Override
+    public void displayAttr(ImageView imgView, TextView txtView) {
+        ImageView genreIMG = imgView;
+        genreIMG.setImageBitmap(bitmapImg);
+
+        TextView gameTitles = txtView;
+        gameTitles.setText("Games of Genre, " + genrePicked + ":  " + gamesOfGenre);
+    }
 }

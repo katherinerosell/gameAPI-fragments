@@ -6,18 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ShareActionProvider;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,15 +19,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * MainActivity
- * @Authors: Katherine Rosell, Jenna Saleh
- * Similar to the NumbersApp, the user selects a genre of a game and this code establishes a network connection!
- *
- */
-
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GenreSelectFragment.Listner {
     ShareActionProvider provider;
     //urls of api here!
     private final String urlHost = "https://rawg-video-games-database.p.rapidapi.com/genres";
@@ -53,10 +36,9 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         //Spinner object
+        /**
         final Spinner genreSpinner = findViewById(R.id.genre_spinner);
         ArrayAdapter<String> genreAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genreHandler.GENRES);
         genreAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,13 +50,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String spinnerText = genreSpinner.getSelectedItem().toString();
-                Log.d("SPINNER", spinnerText);
+                //Log.d("SPINNER", spinnerText);
                 genrePicked = spinnerText;
-                RetrieveGenreGames myFetchRequest = (RetrieveGenreGames) new RetrieveGenreGames().execute(genrePicked);
+                TempActivity.RetrieveGenreGames myFetchRequest = (TempActivity.RetrieveGenreGames) new TempActivity.RetrieveGenreGames().execute(genrePicked);
 
             }
         });
+        **/
+    }
 
+    @Override
+    public void genreSelected(String genreString) {
+        genrePicked = genreString;
+        MainActivity.RetrieveGenreGames myFetchRequest = (MainActivity.RetrieveGenreGames) new MainActivity.RetrieveGenreGames().execute(genreString);
     }
 
 
@@ -105,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 gamesOfGenre = getStringRead(
                         new BufferedReader(new InputStreamReader((mainConnection.getInputStream()))), strings[0]);
-                //Log.d("games in genre", gamesOfGenre.toString());
+                Log.d("games in genre", gamesOfGenre.toString());
             } catch (Exception ex){
-                Log.e("ERR in RETREIVE", ex.toString());
+                //Log.e("ERR in RETREIVE", ex.toString());
                 return null;
             } finally{
                 if (mainConnection != null) mainConnection.disconnect();
@@ -128,16 +116,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /**
-         * OnPOstExecute
+         * OnPostExecute
          * Using the "res" String we creates, which is the list of games we were able to retrieve,
          * send that information into the second activity to be displayed.
          * As well as the image url of the certain genre
          * @param res
          */
         @Override
-        protected void onPostExecute(String res) {
-            if (res != null) {
-                Log.d("*************   MAIN ACTIVITY  *************", " on post execute : res   " + res + " ------------ TYPE OF res:  " + res.getClass());
+        protected void onPostExecute(String res){
+            if (res != null){
+                //Log.d("*************   MAIN ACTIVITY  *************", " on post execute : res   " + res + " --- TYPE OF res:  "  + res.getClass());
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra("List of Games", res);
                 intent.putExtra("Genre", genrePicked);
@@ -145,49 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+
     }
 
-    //Jenna's implementation of Action Bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the app bar
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_share);
-        provider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-        setShareActionIntent("Hi");
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    private void setShareActionIntent(String text) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, text);
-        provider.setShareIntent(intent);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id== R.id.action_help){
-            Intent help = new Intent(this, HelpActivity.class);
-            startActivity(help);
-            return true;
-        }
-        if (id == R.id.action_settings) {
-            Intent settings = new Intent(this, SettingsActivity.class);
-            startActivity(settings);
-            return true;
-        }
-        if (id == R.id.action_share) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "Hello");
-            if (provider != null) {
-                provider.setShareIntent(intent);
-            } else
-                Toast.makeText(this, "no provider", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return false;
-    }
 }
