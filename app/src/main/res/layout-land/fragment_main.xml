@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout
+    tools:context=".MainActivity"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="350dp"
+            android:layout_height="363dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical"
+            android:padding="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.419"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <TextView
+                android:id="@+id/selectgenre_text"
+                android:layout_width="267dp"
+                android:layout_height="67dp"
+                android:text="Select A Genre"
+                android:textSize="28sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <Spinner
+                android:id="@+id/genre_spinner"
+                android:layout_width="268dp"
+                android:layout_height="74dp" />
+
+            <Button
+                android:id="@+id/searchB"
+                android:layout_width="262dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:text="Find Games!"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
